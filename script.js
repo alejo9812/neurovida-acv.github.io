@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         lastScroll = currentScroll;
     });
+
 });
 
 // Function to show form messages

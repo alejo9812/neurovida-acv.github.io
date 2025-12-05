@@ -54,6 +54,55 @@ nav {
     font-weight: 400;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #0E6BA8;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -640,12 +689,21 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 968px) {
+    nav {
+        padding: 0 1.5rem;
+    }
+
     .hero-container {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .hero-right {
         order: -1;
+    }
+
+    .hero-image {
+        height: 400px;
     }
 
     .stats-cards {
@@ -654,68 +712,387 @@ footer {
         left: auto;
         transform: none;
         margin-top: 2rem;
+        width: 100%;
     }
 
     .treatments-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
     .nav-links {
         gap: 1rem;
         font-size: 0.9rem;
     }
-}
 
-@media (max-width: 640px) {
-    .hero {
-        margin: 2rem auto;
-    }
-
-    .hero-container {
-        padding: 2rem 1.5rem;
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        text-align: center;
-    }
-
-    .mini-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-cards {
-        flex-direction: column;
-    }
-
-    .treatments-grid {
-        grid-template-columns: 1fr;
+    section {
+        margin: 4rem auto;
+        padding: 0 1.5rem;
     }
 
     .section-title {
         font-size: 2rem;
     }
 
+    .section-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.75rem 0;
+    }
+
+    nav {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+    }
+
+    .logo-slogan {
+        font-size: 0.7rem;
+    }
+
+    .mobile-menu-toggle {
+        display: none;
+    }
+
+    .mobile-menu-overlay {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 0.75rem;
+    }
+
+    .nav-links li {
+        width: 100%;
+        list-style: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        width: 100%;
+        border-radius: 8px;
+        transition: all 0.3s;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover {
+        background-color: #0E6BA8;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .hero {
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .hero-container {
+        padding: 2rem 1.5rem;
+        border-radius: 24px;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .rating-badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.875rem;
+    }
+
+    .star-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .mini-cards {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .mini-card {
+        padding: 0.875rem;
+    }
+
+    .mini-card-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .mini-card-content h3 {
+        font-size: 0.9rem;
+    }
+
+    .mini-card-content p {
+        font-size: 0.75rem;
+    }
+
+    .hero-image {
+        height: 300px;
+        border-radius: 20px;
+    }
+
+    .stats-cards {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .stat-card {
+        padding: 0.875rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-text {
+        font-size: 0.7rem;
+    }
+
+    section {
+        margin: 3rem auto;
+        padding: 0 1rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .treatments-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .treatment-card {
+        padding: 1.5rem;
+    }
+
+    .treatment-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+
+    .treatment-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .treatment-card p {
+        font-size: 0.95rem;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .team-card {
+        padding: 1.5rem;
+    }
+
+    .team-photo {
+        width: 120px;
+        height: 120px;
+        font-size: 2.5rem;
+    }
+
+    .testimonials {
+        padding: 3rem 1.5rem;
+        margin: 4rem auto;
+        border-radius: 24px;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .testimonial-text {
+        font-size: 0.95rem;
+    }
+
+    .faq-item {
+        padding: 1.25rem;
+    }
+
+    .faq-question {
+        font-size: 1rem;
+    }
+
+    .faq-answer {
+        font-size: 0.9rem;
+    }
+
     .contact {
         padding: 2rem 1.5rem;
+        margin: 4rem auto;
+        border-radius: 24px;
+    }
+
+    .contact-title {
+        font-size: 1.75rem;
+    }
+
+    .contact-text {
+        font-size: 0.95rem;
+    }
+
+    .phone-button {
+        padding: 1.25rem;
+    }
+
+    .phone-button-text {
+        font-size: 0.9rem;
+    }
+
+    .phone-number {
+        font-size: 1.3rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 0.65rem;
+        font-size: 0.95rem;
+    }
+
+    footer {
+        padding: 1.5rem 1rem;
+        margin-top: 4rem;
     }
 
     .footer-content {
         flex-direction: column;
         text-align: center;
+        gap: 1rem;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 0 0.75rem;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
+    .logo-slogan {
+        font-size: 0.65rem;
     }
 
     .nav-links {
-        display: none;
+        gap: 0.5rem;
+    }
+
+    .nav-links a {
+        padding: 0.65rem 0.875rem;
+        font-size: 0.95rem;
+    }
+
+    .hero {
+        margin: 1.5rem auto;
+    }
+
+    .hero-container {
+        padding: 1.5rem 1rem;
+        border-radius: 20px;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .hero-image {
+        height: 250px;
+    }
+
+    .stat-number {
+        font-size: 1.3rem;
+    }
+
+    .stat-text {
+        font-size: 0.65rem;
+    }
+
+    .treatment-card,
+    .team-card,
+    .testimonial-card {
+        padding: 1.25rem;
+    }
+
+    .contact {
+        padding: 1.5rem 1rem;
+    }
+
+    .phone-number {
+        font-size: 1.2rem;
     }
 }
 
