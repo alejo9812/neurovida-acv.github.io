@@ -107,6 +107,85 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
+    // Mobile menu toggle - Mejorado
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const menuOverlay = document.querySelector('.mobile-menu-overlay');
+    const body = document.body;
+    
+    if (mobileMenuToggle && navLinks) {
+        const toggleMenu = (open) => {
+            const isOpen = navLinks.classList.contains('active');
+            
+            if (open === undefined) {
+                // Toggle
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            } else if (open) {
+                openMenu();
+            } else {
+                closeMenu();
+            }
+        };
+
+        const openMenu = () => {
+            navLinks.classList.add('active');
+            if (menuOverlay) menuOverlay.classList.add('active');
+            if (mobileMenuToggle) {
+                mobileMenuToggle.classList.add('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            }
+            body.style.overflow = 'hidden'; // Prevenir scroll del body
+        };
+
+        const closeMenu = () => {
+            navLinks.classList.remove('active');
+            if (menuOverlay) menuOverlay.classList.remove('active');
+            if (mobileMenuToggle) {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+            body.style.overflow = ''; // Restaurar scroll
+        };
+
+        // Toggle al hacer clic en el botón
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        // Cerrar al hacer clic en el overlay
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMenu);
+        }
+
+        // Cerrar al hacer clic en un enlace
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                // Pequeño delay para que se vea la animación
+                setTimeout(closeMenu, 100);
+            });
+        });
+
+        // Cerrar con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Cerrar al hacer clic fuera del menú (en el body)
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                !mobileMenuToggle.contains(e.target)) {
+                closeMenu();
+            }
+        });
+    }
 });
 
 // Function to show form messages
