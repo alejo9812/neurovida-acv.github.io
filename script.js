@@ -133,22 +133,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const openMenu = () => {
             navLinks.classList.add('active');
-            if (menuOverlay) menuOverlay.classList.add('active');
             if (mobileMenuToggle) {
                 mobileMenuToggle.classList.add('active');
                 mobileMenuToggle.setAttribute('aria-expanded', 'true');
             }
-            body.style.overflow = 'hidden'; // Prevenir scroll del body
         };
 
         const closeMenu = () => {
             navLinks.classList.remove('active');
-            if (menuOverlay) menuOverlay.classList.remove('active');
             if (mobileMenuToggle) {
                 mobileMenuToggle.classList.remove('active');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
             }
-            body.style.overflow = ''; // Restaurar scroll
         };
 
         // Toggle al hacer clic en el botón
@@ -157,16 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleMenu();
         });
 
-        // Cerrar al hacer clic en el overlay
-        if (menuOverlay) {
-            menuOverlay.addEventListener('click', closeMenu);
-        }
-
         // Cerrar al hacer clic en un enlace
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                // Pequeño delay para que se vea la animación
-                setTimeout(closeMenu, 100);
+                setTimeout(closeMenu, 150);
             });
         });
 
@@ -177,11 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Cerrar al hacer clic fuera del menú (en el body)
+        // Cerrar al hacer clic fuera del menú
         document.addEventListener('click', (e) => {
             if (navLinks.classList.contains('active') && 
                 !navLinks.contains(e.target) && 
-                !mobileMenuToggle.contains(e.target)) {
+                !mobileMenuToggle.contains(e.target) &&
+                !header.contains(e.target)) {
                 closeMenu();
             }
         });
